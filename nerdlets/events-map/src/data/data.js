@@ -1,3 +1,30 @@
+export const cityLocations = {
+  CROYDON: {
+    lat: 51.3761,
+    lon: -0.0982,
+  },
+  WATFORD: {
+    lat: 51.6565,
+    lon: -0.3903,
+  },
+  CLIFTON: {
+    lat: 40.8584,
+    lon: -74.1638,
+  },
+  PISCATAWAY: {
+    lat: 40.5456,
+    lon: -74.4608,
+  },
+  ESCHBORN: {
+    lat: 50.1403,
+    lon: 8.5736,
+  },
+  SINGAPORE: {
+    lat: 1.3521,
+    lon: 103.8198,
+  },
+};
+
 export const data = [
   {
     "Aggregation Tag.Serverserial": 925254296,

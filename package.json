@@ -1,22 +1,29 @@
 {
-    "private": true,
-    "name": "events-map",
-    "version": "0.1.0",
-    "scripts": {
-        "start": "nr1 nerdpack:serve",
-        "test": "exit 0"
-    },
-    "nr1": {
-        "uuid": "aafd313e-50bc-4c75-bb6b-d1c616aeb0bd"
-    },
-    "dependencies": {
-        "prop-types": "15.7.2",
-        "react": "17.0.2",
-        "react-dom": "17.0.2"
-    },
-    "browserslist": [
-        "last 2 versions",
-        "not ie < 11",
-        "not dead"
-    ]
+  "private": true,
+  "name": "events-map",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "nr1 nerdpack:serve",
+    "test": "exit 0"
+  },
+  "nr1": {
+    "uuid": "aafd313e-50bc-4c75-bb6b-d1c616aeb0bd"
+  },
+  "dependencies": {
+    "leaflet": "^1.6.0",
+    "prop-types": "15.7.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-leaflet": "^2.7.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "not ie < 11",
+    "not dead"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "babel-loader": "^9.1.2"
+  }
 }
