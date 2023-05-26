@@ -1,5 +1,39 @@
 @import "~leaflet/dist/leaflet.css";
 
-.my-nerdlet {
-  outline: 1px solid black;
+// css for panel
+.panel {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-out;
+  z-index: 1001; /* make sure it's higher than the map's z-index */
+  background-color: white; /* or any color that suits your design */
+}
+
+.panel.open {
+  height: 50%; /* You can adjust this value to your liking */
+}
+
+.panel-button {
+  position: fixed;
+  bottom: 0;
+  left: 0; /* align the button to the left */
+  z-index: 1002; /* make sure it's higher than the panel and map's z-index */
+  padding: 1rem;
+  background: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+.panel-button.open {
+  bottom: 50%; /* Match the panel's height */
+}
+
+// css for table
+.table-view {
+  display: block;
+  height: auto;
+  overflow: auto;
 }

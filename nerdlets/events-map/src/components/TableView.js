@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableView = ({ filteredData }) => {
+const TableView = ({ filteredData, showPanel }) => {
   return (
     <table>
       <thead>
