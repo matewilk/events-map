@@ -5,11 +5,12 @@ import useFilter from "./hooks/useFilter";
 import MapView from "./components/MapView";
 import TableView from "./components/TableView";
 import Panel from "./components/Panel";
+import FilterInput from "./components/FilterInput";
 
 import { data, cityLocations } from "./data/data";
 
 const App = () => {
-  const [filter, setFilter] = useState({});
+  const [filter, setFilter] = useState("");
   const filteredData = useFilter(data, filter);
 
   // update the filter when the user inputs a value
@@ -17,12 +18,16 @@ const App = () => {
     setFilter(e.target.value);
   };
 
+  const clearFilter = () => {
+    setFilter("");
+  };
+
   return (
     <div>
-      <input
-        type="text"
-        onChange={handleInputChange}
-        placeholder="Filter by name"
+      <FilterInput
+        filter={filter}
+        handleInputChange={handleInputChange}
+        clearFilter={clearFilter}
       />
 
       <MapView filteredData={filteredData} cityLocations={cityLocations} />

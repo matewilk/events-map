@@ -10,8 +10,11 @@ const Panel = ({ children }) => {
   return (
     <div className={`panel ${open ? "open" : ""}`}>
       {children}
-      <button onClick={togglePanel} className="panel-button">
-        {open ? "Hide Data" : "Show Data"}
+      <button
+        onClick={togglePanel}
+        className={`panel-button ${open ? "open" : ""}`}
+      >
+        {open ? "▼ Hide Data ▼" : "▲ Show Data ▲"}
       </button>
     </div>
   );
