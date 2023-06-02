@@ -1,0 +1,46 @@
+// css for table view
+.table-view {
+  display: block;
+  max-height: 100%;
+  overflow-y: auto;
+  position: relative; // this is needed to position the thead absolutely within this div
+}
+
+.table-view thead {
+  position: sticky;
+  top: 0; // this keeps the header at the top of the .table-view div
+  z-index: 1; // raise above the tbody
+  background-color: white; // this keeps the header cells opaque
+}
+
+.table-view thead th {
+  position: relative; // this is to ensure the z-index applies
+  background: white; // keep the cell opaque
+}
+
+.table-view tbody tr:first-child td {
+  padding-top: 20px; // this should be the height of your header cells, adjust accordingly
+}
+
+.table-view tbody tr {
+  cursor: pointer; /* change cursor on hover */
+}
+
+// override some 3rd party css
+td:not(.u-unstyledTd),
+th:not(.u-unstyledTh) {
+  background: transparent !important; /* remove background color from cells */
+}
+
+// apply styles to odd and even rows
+.table-view tbody tr:nth-child(odd) {
+  background-color: #f9f9f9; /* color for odd rows */
+}
+
+.table-view tbody tr:nth-child(even) {
+  background-color: #e9e9e9; /* color for even rows */
+}
+
+.table-view tbody tr.selected {
+  background-color: #d9d9d9; /* color for selected row */
+}

@@ -16,12 +16,15 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const MapView = ({ filteredData, cityLocations }) => {
+const MapView = ({ filteredData, cityLocations, center, selectRow }) => {
   return (
     <Map
-      center={[51.505, -0.09]}
-      zoom={2}
-      style={{ height: "94vh", width: "100%" }}
+      center={center}
+      zoom={5}
+      style={{
+        height: "94vh",
+        width: "100%",
+      }}
     >
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -35,6 +38,7 @@ const MapView = ({ filteredData, cityLocations }) => {
             <Marker
               position={[location.lat, location.lon]}
               key={item.Externalid}
+              onclick={() => selectRow(item)}
             >
               <Popup>
                 <div>

@@ -1,0 +1,64 @@
+// detail panel
+.details-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  transition: width 0.3s ease-out;
+  z-index: 1003;
+  background-color: white;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.details-panel.open {
+  width: 40%;
+}
+
+.details-panel-button {
+  position: fixed;
+  right: -47px;
+  top: 48px;
+  z-index: 1004;
+  height: 20px;
+  min-height: 20px;
+  min-width: none;
+  padding: 0 5px;
+  background: #ccc;
+  border: none;
+  cursor: pointer;
+  transition: right 0.3s ease-out;
+  writing-mode: vertical-lr;
+  transform: rotate(90deg);
+}
+
+.details-panel-button.open {
+  right: calc(40% - 45px);
+  top: 45px;
+}
+
+// detail panel content
+.details-panel-content {
+  padding: 20px;
+  height: calc(100% - 40px); /* Subtract twice the padding */
+  overflow-y: auto; /* Add a vertical scrollbar when necessary */
+}
+
+.details-panel-item {
+  margin-bottom: 15px; /* Add some space between rows */
+}
+
+.details-panel-key {
+  display: inline-block;
+  width: 200px; /* Set a fixed width for the keys for alignment */
+  font-weight: bold;
+}
+
+.details-panel-value {
+  display: inline-block;
+  max-width: calc(100% - 200px); /* Subtract the width we set for the key */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Handle long values */
+}

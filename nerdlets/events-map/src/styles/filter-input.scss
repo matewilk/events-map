@@ -1,0 +1,46 @@
+// css for filter input
+$height: 38px;
+$font-size: 16px;
+.filter-input {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 0; // remove padding to make the button fit the height
+  height: $height; // increase height as per requirement
+}
+
+.filter-input-label {
+  font-size: $font-size;
+  line-height: $height;
+  padding: 0 10px;
+}
+
+.filter-input input {
+  flex-grow: 1;
+  border: none;
+  height: 50px;
+  padding: 0 15px; // remove vertical padding
+  font-size: $font-size !important; // increase font size
+  line-height: $height; // center text vertically
+  margin-right: 10px;
+}
+
+.filter-input input.has-content {
+  font-weight: bold !important;
+  color: #f00 !important;
+}
+
+.filter-input button {
+  padding: 0; // remove padding to fit height
+  width: 50px; // set a fixed width to the button
+  border: none;
+  background-color: #ccc;
+  color: #000;
+  cursor: pointer;
+  font-size: 18px; // match input font size
+  line-height: $height; // center icon vertically
+}
+
+.filter-input button:hover {
+  background-color: #aaa;
+}

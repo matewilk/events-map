@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableView = ({ filteredData, showPanel }) => {
+const TableView = ({ filteredData, selectRow, selectedRow }) => {
   return (
     <div className="table-view">
       <table>
@@ -21,7 +21,15 @@ const TableView = ({ filteredData, showPanel }) => {
         </thead>
         <tbody>
           {filteredData.map((item) => (
-            <tr key={item.Externalid}>
+            <tr
+              key={item.Externalid}
+              onClick={() => selectRow(item)}
+              className={
+                selectedRow && selectedRow.Externalid === item.Externalid
+                  ? "selected"
+                  : ""
+              }
+            >
               <td>{item.Externalid}</td>
               <td>{item.Priority}</td>
               <td>{item.Source}</td>
