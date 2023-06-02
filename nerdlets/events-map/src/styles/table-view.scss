@@ -4,6 +4,11 @@
   max-height: 100%;
   overflow-y: auto;
   position: relative; // this is needed to position the thead absolutely within this div
+  width: 100%; // Ensure the parent container takes up full width
+}
+
+.table-view table {
+  width: 100%; // Make the table take up full width of its container
 }
 
 .table-view thead {

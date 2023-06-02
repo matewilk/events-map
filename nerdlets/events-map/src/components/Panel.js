@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-const Panel = ({ children }) => {
+const Panel = ({ children, setIsBottomPanelOpen }) => {
   const [open, setOpen] = useState(false);
 
   const togglePanel = () => {
     setOpen(!open);
+    setIsBottomPanelOpen(!open);
   };
 
   return (

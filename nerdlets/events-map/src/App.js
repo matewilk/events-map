@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import useFilter from "./hooks/useFilter";
 
@@ -19,6 +19,10 @@ const App = () => {
 
   // center for the map
   const [mapCenter, setMapCenter] = useState([51.505, -0.09]);
+
+  // state for the side and bottom panels - this resizes the map
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+  const [isBottomPanelOpen, setIsBottomPanelOpen] = useState(false);
 
   // update selected row when a table row is clicked
   const handleRowClick = (row) => {
@@ -53,16 +57,21 @@ const App = () => {
         cityLocations={cityLocations}
         center={mapCenter}
         selectRow={handleRowClick}
+        isSidePanelOpen={isSidePanelOpen}
+        isBottomPanelOpen={isBottomPanelOpen}
       />
 
-      <Panel>
+      <Panel setIsBottomPanelOpen={setIsBottomPanelOpen}>
         <TableView
           filteredData={filteredData}
           selectRow={handleRowClick}
           selectedRow={selectedRow}
         />
       </Panel>
-      <DetailPanel data={selectedRow || {}} />
+      <DetailPanel
+        data={selectedRow || {}}
+        setIsSidePanelOpen={setIsSidePanelOpen}
+      />
     </div>
   );
 };

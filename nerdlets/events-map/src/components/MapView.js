@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 // fix for broken marker icons
@@ -16,16 +16,34 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const MapView = ({ filteredData, cityLocations, center, selectRow }) => {
+const MapView = ({
+  filteredData,
+  cityLocations,
+  center,
+  selectRow,
+  isBottomPanelOpen,
+  isSidePanelOpen,
+}) => {
+  // This state is used to resize the map when the side or bottom panels are open.
+  const [mapStyle, setMapStyle] = useState({
+    height: "94vh",
+    width: "100%",
+  });
+
+  // This effect runs when isSidePanelOpen or isBottomPanelOpen changes.
+  // It forces the map to resize and recenter.
+  useEffect(() => {
+    setTimeout(() => {
+      setMapStyle({
+        height: isBottomPanelOpen ? "50vh" : "94vh",
+        width: isSidePanelOpen ? "60%" : "100%",
+      });
+      window.dispatchEvent(new Event("resize"));
+    }, 400);
+  }, [isSidePanelOpen, isBottomPanelOpen]);
+
   return (
-    <Map
-      center={center}
-      zoom={5}
-      style={{
-        height: "94vh",
-        width: "100%",
-      }}
-    >
+    <Map center={center} zoom={5} style={mapStyle}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
