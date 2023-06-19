@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import useFilter from "./hooks/useFilter";
 
@@ -13,6 +13,19 @@ import { data, cityLocations } from "./data/data";
 const App = () => {
   const [filter, setFilter] = useState("");
   const filteredData = useFilter(data, filter);
+
+  const eventCounts = filteredData.reduce((counts, item) => {
+    const cityName = item["Tag.City"].toUpperCase();
+    const narid = item["Tag.Narid"];
+    if (!counts[cityName]) {
+      counts[cityName] = {};
+    }
+    if (!counts[cityName][narid]) {
+      counts[cityName][narid] = 0;
+    }
+    counts[cityName][narid]++;
+    return counts;
+  }, {});
 
   // selectedRow is the item that the user has clicked on
   const [selectedRow, setSelectedRow] = useState(null);
@@ -59,6 +72,7 @@ const App = () => {
         selectRow={handleRowClick}
         isSidePanelOpen={isSidePanelOpen}
         isBottomPanelOpen={isBottomPanelOpen}
+        eventCounts={eventCounts}
       />
 
       <Panel setIsBottomPanelOpen={setIsBottomPanelOpen}>
@@ -66,6 +80,8 @@ const App = () => {
           filteredData={filteredData}
           selectRow={handleRowClick}
           selectedRow={selectedRow}
+          cityLocations={cityLocations}
+          eventCounts={eventCounts}
         />
       </Panel>
       <DetailPanel

@@ -23,6 +23,7 @@ const MapView = ({
   selectRow,
   isBottomPanelOpen,
   isSidePanelOpen,
+  eventCounts,
 }) => {
   // This state is used to resize the map when the side or bottom panels are open.
   const [mapStyle, setMapStyle] = useState({
@@ -48,28 +49,24 @@ const MapView = ({
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {filteredData.map((item) => {
-        const cityName = item["Tag.City"].toUpperCase();
-        const location = cityLocations[cityName];
-        if (location) {
-          return (
-            <Marker
-              position={[location.lat, location.lon]}
-              key={item.Externalid}
-              onclick={() => selectRow(item)}
-            >
-              <Popup>
-                <div>
-                  <h3>{item.Title}</h3>
-                  <p>
-                    {cityName}, {item["Tag.Country"]}
-                  </p>
-                </div>
-              </Popup>
-            </Marker>
-          );
-        }
-        return null;
+      {Object.entries(cityLocations).map(([cityName, location]) => {
+        const eventCount = Object.values(eventCounts[cityName] || {}).reduce(
+          (a, b) => a + b,
+          0
+        );
+        return (
+          <Marker position={[location.lat, location.lon]} key={cityName}>
+            <Popup>
+              <div>
+                <h3>{cityName}</h3>
+                <p>
+                  Lat: {location.lat}, Lon: {location.lon}
+                </p>
+                <p>Number of events: {eventCount}</p>
+              </div>
+            </Popup>
+          </Marker>
+        );
       })}
     </Map>
   );
