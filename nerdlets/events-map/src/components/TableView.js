@@ -1,7 +1,55 @@
 import React, { useEffect, useRef, useState } from "react";
 
+const StatusIndicator = ({ status }) => {
+  const statusColors = {
+    normal: "green",
+    warning: "yellow",
+    alert: "red",
+  };
+
+  const statusColor = statusColors[status] || statusColors.normal;
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      <div
+        style={{
+          width: "10px",
+          height: "10px",
+          borderRadius: "50%",
+          backgroundColor: statusColor,
+        }}
+      />
+    </div>
+  );
+};
+
+const calculateStatus = (eventCounts) => {
+  const eventCount = Object.values(eventCounts || {}).reduce(
+    (a, b) => a + b,
+    0
+  );
+
+  if (eventCount > 2) {
+    return "alert";
+  } else if (eventCount > 0) {
+    return "warning";
+  } else {
+    return "normal";
+  }
+};
+
 const EventRow = ({ event, selectRow }) => (
   <tr onClick={() => selectRow(event)}>
+    <td>
+      <StatusIndicator status={status} />
+    </td>
     <td>{event.Externalid}</td>
     <td>{event.Priority}</td>
     <td>{event.Source}</td>
@@ -19,6 +67,7 @@ const EventTable = ({ events, selectRow }) => (
   <table>
     <thead>
       <tr>
+        <th>Status</th>
         <th>External ID</th>
         <th>Priority</th>
         <th>Source</th>
@@ -47,6 +96,7 @@ const DatacenterRow = ({
   openDatacenter,
   setOpenDatacenter,
   eventCounts,
+  status,
 }) => {
   const toggleDatacenter = () => {
     if (openDatacenter === datacenter) {
@@ -62,6 +112,9 @@ const DatacenterRow = ({
         onClick={toggleDatacenter}
         className={openDatacenter === datacenter ? "selected" : ""}
       >
+        <td>
+          <StatusIndicator status={status} />
+        </td>
         <td>{datacenter}</td>
         <td>{location.lon}</td>
         <td>{location.lat}</td>
@@ -78,7 +131,7 @@ const DatacenterRow = ({
       </tr>
       {openDatacenter === datacenter && (
         <tr>
-          <td colSpan={5}>
+          <td colSpan={6}>
             <EventTable events={events} selectRow={selectRow} />
           </td>
         </tr>
@@ -105,6 +158,7 @@ const DatacenterTable = ({
     <table>
       <thead>
         <tr>
+          <th style={{ textAlign: "center" }}>Status</th>
           <th>Datacenter</th>
           <th>Longitude</th>
           <th>Latitude</th>
@@ -115,6 +169,7 @@ const DatacenterTable = ({
       <tbody>
         {Object.entries(cityLocations).map(([datacenter, location], index) => {
           const events = datacenterEvents(datacenter);
+          const status = calculateStatus(eventCounts[datacenter]);
           return (
             <DatacenterRow
               key={datacenter}
@@ -125,6 +180,7 @@ const DatacenterTable = ({
               openDatacenter={openDatacenter}
               setOpenDatacenter={setOpenDatacenter}
               eventCounts={eventCounts}
+              status={status}
             />
           );
         })}
