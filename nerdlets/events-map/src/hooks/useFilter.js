@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useFilter = (data, filter) => {
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState(data);
 
   useEffect(() => {
     const newFilteredData = data.filter((item) => {
